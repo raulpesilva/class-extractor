@@ -1,55 +1,18 @@
-import React, { useRef, useState } from "react";
-import TextArea from "../../components/shared/TextArea";
-import * as Styled from "./styles";
+import React, { useRef, useState } from 'react';
+import TextArea from '../../components/shared/TextArea';
+import * as Styled from './styles';
 // teste__teste1-teste2
 
 const Bem = () => {
   const ref = useRef(null);
-  const [output, setOutput] = useState("");
-
-  const generateBemSass = (classes) => {
-    const mainClassList = Object.keys(classes);
-    let string = "";
-    const generateChildrenBemSass = (childrenList, parent) => {
-      let string = "";
-
-      childrenList.forEach((item) => {
-        const modifier = parent ? Object.keys(classes[parent][item]) : [];
-        console.log("modifier:", modifier);
-
-        string += `
-  &${item}{
-    ${modifier.reduce((acc, item) => {
-              return (acc += `
-    &${item}{
-
-    }
-`);
-            }, "")}
-  }`;
-  });
-      return string.trim();
-    };
-
-    mainClassList.forEach((item) => {
-      string += `
-.${item}{
-
-  ${generateChildrenBemSass(Object.keys(classes[item]), item)}
-
-}
-`;
-    });
-
-    return string.trim();
-  };
+  const [output, setOutput] = useState('');
 
   const composeBemMainClass = (list) => {
     const composed = {};
 
     list.forEach((item) => {
-      const [first, children] = item.split("__");
-      const sub = children?.split("--");
+      const [first, children] = item.split('__');
+      const sub = children?.split('--');
       sub?.length > 0 &&
         sub.reduce((oldClass, classe, index) => {
           if (index) {
@@ -66,13 +29,14 @@ const Bem = () => {
             }
             return `__${classe}`;
           }
-        }, "");
+          return oldClass;
+        }, '');
     });
     return composed;
   };
 
   const extractClass = (element) => {
-    const elementList = [...element.querySelectorAll("*")];
+    const elementList = [...element.querySelectorAll('*')];
     const elementClassList = elementList.reduce((acc, item) => {
       return [...acc, ...item.classList];
     }, []);
@@ -88,7 +52,7 @@ const Bem = () => {
 
     setOutput(generateBemSass(composedBem).trim());
 
-    console.log("handleChange", composedBem);
+    console.log('handleChange', composedBem);
   };
 
   return (
@@ -99,9 +63,44 @@ const Bem = () => {
       <Styled.FieldWrapper>
         <TextArea placeholder="Output" value={output}></TextArea>
       </Styled.FieldWrapper>
-      <div ref={ref} style={{ display: "none" }}></div>
+      <div ref={ref} style={{ display: 'none' }}></div>
     </Styled.Container>
   );
 };
+const generateBemSass = (classes) => {
+  const mainClassList = Object.keys(classes);
+  let string = '';
+  const generateChildrenBemSass = (childrenList, parent) => {
+    let string = '';
 
+    childrenList.forEach((item) => {
+      const modifier = parent ? Object.keys(classes[parent][item]) : [];
+      console.log('modifier:', modifier);
+
+      string += `
+&${item}{
+  ${modifier.reduce((acc, item) => {
+    return (acc += `
+  &${item}{
+
+  }
+`);
+  }, '')}
+}`;
+    });
+    return string.trim();
+  };
+
+  mainClassList.forEach((item) => {
+    string += `
+.${item}{
+
+${generateChildrenBemSass(Object.keys(classes[item]), item)}
+
+}
+`;
+  });
+
+  return string.trim();
+};
 export default Bem;
