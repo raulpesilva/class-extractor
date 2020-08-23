@@ -13,27 +13,28 @@ const Bem = () => {
 
     list.forEach((item) => {
       const [first, children] = item.split('__');
+      const [trueFirst, modifier] = first.split('--');
       const sub = children?.split('--');
-      console.log('aaa', first, children, sub);
+      if (modifier) composed[trueFirst] = { [`--${modifier}`]: {} };
       sub?.length > 0
         ? sub.reduce((oldClass, classe, index) => {
             if (index) {
-              composed[first][oldClass] = { ...composed[first][oldClass], [`--${classe}`]: {} };
+              composed[trueFirst][oldClass] = { ...composed[trueFirst][oldClass], [`--${classe}`]: {} };
               return oldClass;
             }
             if (index === 0) {
-              if (composed?.[first]?.[`__${classe}`]) {
-                return `__${classe}`;
+              if (composed?.[trueFirst]?.[`__${classe}`]) {
+              return `__${classe}`;
               } else {
-                composed[first] = composed[first]
-                  ? { ...composed[first], [`__${classe}`]: {} }
+                composed[trueFirst] = composed[trueFirst]
+                  ? { ...composed[trueFirst], [`__${classe}`]: {} }
                   : { [`__${classe}`]: {} };
               }
               return `__${classe}`;
             }
             return oldClass;
           }, '')
-        : (composed[first] = {});
+        : (composed[trueFirst] = {...composed[trueFirst]});
     });
     return composed;
   };
@@ -83,15 +84,16 @@ const generateBemSass = (classes) => {
       console.log('modifier:', modifier);
 
       string += `
-&${item}{
-  ${modifier.reduce((acc, item) => {
-    return (acc += `
   &${item}{
+      ${modifier.reduce((acc, item) => {
+        return (acc += `
+      &${item}{
 
-  }
+      }
 `);
   }, '')}
-}`;
+  }
+  `;
     });
     return string.trim();
   };
@@ -99,9 +101,7 @@ const generateBemSass = (classes) => {
   mainClassList.forEach((item) => {
     string += `
 .${item}{
-
-${generateChildrenBemSass(Object.keys(classes[item]), item)}
-
+  ${generateChildrenBemSass(Object.keys(classes[item]), item)}
 }
 `;
   });
