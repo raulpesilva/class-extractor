@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import TextArea from '../../components/shared/TextArea';
 import * as Styled from './styles';
 // teste__teste1-teste2
-import AdSense from 'react-adsense';
+// import AdSense from 'react-adsense';
 
 const Bem = () => {
   const ref = useRef(null);
