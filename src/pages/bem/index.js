@@ -13,28 +13,30 @@ const Bem = () => {
     list.forEach((item) => {
       const [first, children] = item.split('__');
       const sub = children?.split('--');
-      sub?.length > 0 &&
-        sub.reduce((oldClass, classe, index) => {
-          if (index) {
-            composed[first][oldClass] = { ...composed[first][oldClass], [`--${classe}`]: {} };
+      console.log('aaa', first, children, sub);
+      sub?.length > 0 ?
+      sub.reduce((oldClass, classe, index) => {
+        if (index) {
+          composed[first][oldClass] = { ...composed[first][oldClass], [`--${classe}`]: {} };
             return oldClass;
           }
           if (index === 0) {
             if (composed?.[first]?.[`__${classe}`]) {
-              return oldClass;
+              return `__${classe}`;
             } else {
               composed[first] = composed[first]
-                ? { ...composed[first], [`__${classe}`]: {} }
+              ? { ...composed[first], [`__${classe}`]: {} }
                 : { [`__${classe}`]: {} };
-            }
+              }
             return `__${classe}`;
           }
           return oldClass;
-        }, '');
-    });
+        }, '')
+        : composed[first] = {};
+      });
     return composed;
   };
-
+  
   const extractClass = (element) => {
     const elementList = [...element.querySelectorAll('*')];
     const elementClassList = elementList.reduce((acc, item) => {
