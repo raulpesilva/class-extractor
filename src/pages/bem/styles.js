@@ -5,6 +5,7 @@ export const Container = styled.div`
     height: 100%;
     display: flex;
     justify-content: space-evenly;
+    margin-top: 30px;
 `
 
 export const FieldWrapper = styled.div`
