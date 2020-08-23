@@ -58,6 +58,7 @@ const Bem = () => {
           }
           if (index === 0) {
             if (composed?.[first]?.[`__${classe}`]) {
+              return oldClass;
             } else {
               composed[first] = composed[first]
                 ? { ...composed[first], [`__${classe}`]: {} }
