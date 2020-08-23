@@ -69,13 +69,6 @@ const Bem = () => {
         </Styled.FieldWrapper>
         <div ref={ref} style={{ display: 'none' }}></div>
       </Styled.Container>
-      <AdSense.Google
-        client="ca-pub-7292810486004926"
-        slot="7806394673"
-        style={{ display: 'block' }}
-        layout="in-article"
-        format="fluid"
-      />
     </>
   );
 };
