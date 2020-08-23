@@ -13,6 +13,14 @@ code {
     monospace;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #dad7d790;
+  border-radius: 4px;
+}
+
 .App {
   width: 100vw;
   height: 100vh;
