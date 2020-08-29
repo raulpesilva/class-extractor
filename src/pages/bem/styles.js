@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import { FiCopy } from "react-icons/fi";
+import styled, { css } from 'styled-components';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { FiCopy } from 'react-icons/fi';
 
 export const Container = styled.div`
   width: 80%;
@@ -18,9 +18,9 @@ export const FieldWrapper = styled.div`
 
 export const Colorizer = styled(SyntaxHighlighter).attrs({
   showLineNumbers: true,
-  language: "scss",
+  language: 'scss',
   style: dracula,
-  customStyle: { marginTop: 0, backgroundColor: "#393939A1" },
+  customStyle: { marginTop: 0, backgroundColor: '#393939A1' },
 })`
   width: max(38vw, 38vh);
   height: max(38vw, 38vh);
@@ -46,25 +46,21 @@ export const CopyButton = styled(FiCopy)`
   cursor: pointer;
 
   @keyframes copy {
-    0%{
+    0% {
       transform: scale(1);
     }
-    33%{
-      transform: scale(.8);
-
+    33% {
+      transform: scale(0.8);
     }
-    100%{
+    100% {
       transform: scale(1);
     }
   }
 
   ${({ copied }) =>
-    copied &&
+    !!copied &&
     css`
-    color: green;
-    animation: copy 400ms;
-      
+      color: green;
+      animation: copy 400ms;
     `}
-
-  
 `;
