@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const TextArea = styled.textarea`
-    width: max(38vw, 38vh);
-    height: max(38vw, 38vh);
+    width: max(33vw, 33vh);
+    height: max(33vw, 33vh);
     resize: none;
     border-radius: 8px; 
     background-color: #393939A1;
@@ -13,7 +13,6 @@ export const TextArea = styled.textarea`
     box-sizing: border-box;
     transition: 250ms;
     &:focus{
-        /* border: 1px solid ; */
         background-color: #393939;
     }
 `

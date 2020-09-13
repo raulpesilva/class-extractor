@@ -1,8 +1,17 @@
-const useClasses = () => {
+const useSass = () => {
   const extractClass = (string) => {
     const re = /(?<=class=" | class=')(.*?)(?=">|"(?!2001)|'>|'(?!2001))/gi;
     const extractedClasses = string.match(re);
-    return extractedClasses;
+
+    if (!extractedClasses) return;
+    
+    const formatedExtractedClasses = extractedClasses.reduce((acc, className) => {
+      const splitedClasses = className.split(' ');
+
+      return [...acc, ...splitedClasses];
+    }, [])
+
+    return formatedExtractedClasses;
   };
 
   const generateBemSass = (classes) => {
@@ -77,4 +86,4 @@ const useClasses = () => {
   return { extractClass, generateBemSass, composeBemMainClass };
 };
 
-export default useClasses;
+export default useSass;
