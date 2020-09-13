@@ -22,14 +22,15 @@ export const Colorizer = styled(SyntaxHighlighter).attrs({
   style: dracula,
   customStyle: { marginTop: 0, backgroundColor: '#393939A1' },
 })`
-  width: max(38vw, 38vh);
-  height: max(38vw, 38vh);
+  width: max(33vw, 33vh);
+  height: max(33vw, 33vh);
   resize: none;
   border-radius: 8px;
   outline: none;
   border: 1px solid #4c5963;
   box-sizing: border-box;
   transition: 250ms;
+  position: relative;
 
   &:focus {
     background-color: #393939;
@@ -41,8 +42,9 @@ export const CopyButton = styled(FiCopy)`
   width: 30px;
   height: 30px;
   position: absolute;
-  top: 25px;
+  top: 105px;
   right: 25px;
+  z-index: 1;
   cursor: pointer;
 
   @keyframes copy {
@@ -64,3 +66,9 @@ export const CopyButton = styled(FiCopy)`
       animation: copy 400ms;
     `}
 `;
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  margin-bottom: 37px;
+  display: flex;
+`
