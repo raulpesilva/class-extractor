@@ -1,7 +1,8 @@
 const useSass = () => {
   const extractClass = (string) => {
+    const formatedString = string.replace(/"/g, `'`);
     const re = /(?<=class=" | class=')(.*?)(?=">|"(?!2001)|'>|'(?!2001))/gi;
-    const extractedClasses = string.match(re);
+    const extractedClasses = formatedString.match(re);
 
     if (!extractedClasses) return;
     
